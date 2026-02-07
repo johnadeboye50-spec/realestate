@@ -1,0 +1,237 @@
+{% extends "public/public_layout.html" %}
+{% block content %}
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="heading">
+            <div class="container">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="heading-title">About</h1>
+                        <p class="mb-0">
+                            Learn about our company's journey and commitment to excellence. Discover how we have become
+                            a trusted leader in the real estate industry. With years of experience and dedication, we
+                            continue to provide outstanding service to our clients worldwide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="breadcrumbs">
+            <div class="container">
+                <ol>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li class="current">About</li>
+                </ol>
+            </div>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-7">
+                    <div class="intro-content" data-aos="fade-right" data-aos-delay="200">
+                        <div class="section-badge">
+                            <i class="bi bi-house-heart"></i>
+                            <span>Your Trusted Real Estate Partner</span>
+                        </div>
+                        <h2>Building Dreams, Creating Homes Since 2010</h2>
+                        <p class="lead-text">We are dedicated to providing exceptional real estate services with a
+                            personal touch. Our team of experienced professionals is committed to understanding your
+                            unique needs and delivering solutions that exceed expectations. With a focus on transparency
+                            and integrity, we make your property journey seamless and rewarding.</p>
+                        <p>Our comprehensive approach combines market expertise, innovative technology, and personalized
+                            service to ensure every client achieves their real estate goals. Whether you're buying,
+                            selling, or investing, our proven strategies and industry knowledge give you the confidence
+                            to make informed decisions.</p>
+
+                        <div class="founder-highlight" data-aos="fade-up" data-aos-delay="300">
+                            <div class="founder-image">
+                                <img src="static/img/person/person-m-7.webp" alt="Founder" class="img-fluid">
+                            </div>
+                            <div class="founder-info">
+                                <blockquote>"Our passion for real estate and dedication to our clients' success is what
+                                    sets us apart in this competitive industry."</blockquote>
+                                <div class="founder-details">
+                                    <h5>Michael Thompson</h5>
+                                    <span>Founder &amp; CEO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="visual-section" data-aos="fade-left" data-aos-delay="250">
+                        <div class="main-image">
+                            <img src="static/img/real-estate/property-exterior-7.webp" alt="Luxury Development"
+                                class="img-fluid">
+                            <div class="experience-badge">
+                                <div class="badge-number">14+</div>
+                                <div class="badge-text">Years of Excellence</div>
+                            </div>
+                        </div>
+                        <div class="overlay-image">
+                            <img src="static/img/real-estate/property-interior-6.webp" alt="Interior Design"
+                                class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements-grid" data-aos="fade-up" data-aos-delay="350">
+                <div class="row text-center">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="achievement-item" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="achievement-icon">
+                                <i class="bi bi-key"></i>
+                            </div>
+                            <div class="achievement-number">
+                                <span data-purecounter-start="0" data-purecounter-end="2850"
+                                    data-purecounter-duration="2" class="purecounter"></span>+
+                            </div>
+                            <div class="achievement-label">Properties Sold</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="achievement-item" data-aos="zoom-in" data-aos-delay="450">
+                            <div class="achievement-icon">
+                                <i class="bi bi-heart-fill"></i>
+                            </div>
+                            <div class="achievement-number">
+                                <span data-purecounter-start="0" data-purecounter-end="98" data-purecounter-duration="2"
+                                    class="purecounter"></span>%
+                            </div>
+                            <div class="achievement-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="achievement-item" data-aos="zoom-in" data-aos-delay="500">
+                            <div class="achievement-icon">
+                                <i class="bi bi-geo-alt"></i>
+                            </div>
+                            <div class="achievement-number">
+                                <span data-purecounter-start="0" data-purecounter-end="35" data-purecounter-duration="2"
+                                    class="purecounter"></span>
+                            </div>
+                            <div class="achievement-label">Cities Covered</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="achievement-item" data-aos="zoom-in" data-aos-delay="550">
+                            <div class="achievement-icon">
+                                <i class="bi bi-award"></i>
+                            </div>
+                            <div class="achievement-number">
+                                <span data-purecounter-start="0" data-purecounter-end="127"
+                                    data-purecounter-duration="2" class="purecounter"></span>
+                            </div>
+                            <div class="achievement-label">Industry Awards</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Achievements Grid -->
+
+            <div class="timeline-section" data-aos="fade-up" data-aos-delay="400">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="section-header text-center mb-5">
+                            <h3>Our Journey of Excellence</h3>
+                            <p>From humble beginnings to becoming a market leader, our journey reflects our commitment
+                                to innovation and customer excellence.</p>
+                        </div>
+
+                        <div class="timeline">
+                            <div class="timeline-item" data-aos="fade-right" data-aos-delay="450">
+                                <div class="timeline-year">2010</div>
+                                <div class="timeline-content">
+                                    <h4>Company Founded</h4>
+                                    <p>We officially launched our real estate business with a vision to revolutionize
+                                        the property market through customer-centric services and innovative solutions.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-aos="fade-left" data-aos-delay="500">
+                                <div class="timeline-year">2015</div>
+                                <div class="timeline-content">
+                                    <h4>1000th Property Milestone</h4>
+                                    <p>We reached a major milestone by successfully selling our 1000th property,
+                                        demonstrating our consistent success and client trust in our services.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-aos="fade-right" data-aos-delay="550">
+                                <div class="timeline-year">2020</div>
+                                <div class="timeline-content">
+                                    <h4>Digital Innovation Launch</h4>
+                                    <p>We pioneered digital innovation in real estate, launching advanced tools and
+                                        platforms that transformed how properties are bought, sold, and managed online.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-aos="fade-left" data-aos-delay="600">
+                                <div class="timeline-year">2024</div>
+                                <div class="timeline-content">
+                                    <h4>Regional Expansion</h4>
+                                    <p>We expanded our operations to new regions, bringing our expertise and proven
+                                        strategies to serve more clients across diverse markets and communities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Timeline Section -->
+
+            <div class="team-preview" data-aos="fade-up" data-aos-delay="450">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h3>Meet Our Expert Team</h3>
+                        <p class="team-description">Our talented team brings together years of experience, market
+                            expertise, and a shared passion for delivering exceptional real estate solutions and
+                            outstanding customer service.</p>
+
+                        <div class="team-grid">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="team-member" data-aos="flip-up" data-aos-delay="500">
+                                        <div class="member-image">
+                                            <img src="static/img/real-estate/agent-5.webp" alt="Team Member"
+                                                class="img-fluid">
+                                        </div>
+                                        <div class="member-info">
+                                            <h5>Sarah Martinez</h5>
+                                            <span>Senior Property Advisor</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="team-member" data-aos="flip-up" data-aos-delay="550">
+                                        <div class="member-image">
+                                            <img src="static/img/real-estate/agent-2.webp" alt="Team Member"
+                                                class="img-fluid">
+                                        </div>
+                                        <div class="member-info">
+                                            <h5>David Chen</h5>
+                                            <span>Investment Specialist</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="team.html" class="view-team-btn">View Full Team</a>
+                    </div>
+                </div>
+            </div><!-- End Team Preview -->
+
+        </div>
+
+    </section><!-- /About Section -->
+
+</main>
+
+{% endblock %}

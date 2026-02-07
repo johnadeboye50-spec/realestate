@@ -1,0 +1,236 @@
+{% extends 'public/public_layout.html' %}
+
+{% block content %}
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="heading">
+            <div class="container">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="heading-title">Privacy</h1>
+                        <p class="mb-0">
+                            Our privacy policy explains how we collect, use, and protect your personal information. We
+                            are committed to maintaining your trust by ensuring your data is handled responsibly and
+                            securely at all times.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="breadcrumbs">
+            <div class="container">
+                <ol>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li class="current">Privacy</li>
+                </ol>
+            </div>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <!-- Privacy Section -->
+    <section id="privacy" class="privacy section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+
+                    <div class="privacy-content">
+                        <div class="last-updated" data-aos="fade-up" data-aos-delay="200">
+                            <p><strong>Last updated:</strong> December 15, 2024</p>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="300">
+                            <h3>Information We Collect</h3>
+                            <p>We collect information that helps us provide better services and improve your experience
+                                on our platform. This includes personal details you provide and data collected
+                                automatically when you interact with our website.</p>
+
+                            <h4>Personal Information</h4>
+                            <ul>
+                                <li>Your name, email address, and contact information</li>
+                                <li>Property preferences and search history on our platform</li>
+                                <li>Payment and transaction information for property purchases or rentals</li>
+                                <li>Profile information and preferences you choose to share with us</li>
+                            </ul>
+
+                            <h4>Usage Data</h4>
+                            <p>We track how you interact with our website to understand user behavior and improve our
+                                services. This includes information about your device, browser, pages visited, and the
+                                time spent on our platform.</p>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="400">
+                            <h3>How We Use Your Information</h3>
+                            <p>We use your information to provide and improve our services, process transactions,
+                                communicate with you about your account, and send you updates about new properties and
+                                services that match your interests.</p>
+
+                            <div class="info-box">
+                                <h4>Primary Uses</h4>
+                                <ol>
+                                    <li>Processing your property searches and transaction requests</li>
+                                    <li>Sending you notifications about new listings matching your criteria</li>
+                                    <li>Communicating important updates and policy changes</li>
+                                    <li>Providing customer support and resolving your inquiries</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="500">
+                            <h3>Information Sharing and Disclosure</h3>
+                            <p>We share your information only when necessary with trusted partners and service providers
+                                who help us deliver our services. We maintain strict agreements to ensure your data
+                                remains protected and confidential.</p>
+
+                            <div class="highlight-box" data-aos="fade-up" data-aos-delay="600">
+                                <i class="bi bi-shield-check"></i>
+                                <h4>We Never Sell Your Data</h4>
+                                <p>Your privacy is our priority. We never sell, rent, or share your personal data with
+                                    third parties for marketing purposes without your explicit consent.</p>
+                            </div>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="700">
+                            <h3>Data Security</h3>
+                            <p>We implement industry-leading security measures and follow best practices to ensure your
+                                data is protected from unauthorized access and maintained with the highest standards of
+                                confidentiality.</p>
+
+                            <div class="security-measures">
+                                <div class="row">
+                                    <div class="col-md-6" data-aos="fade-right" data-aos-delay="800">
+                                        <div class="measure-item">
+                                            <i class="bi bi-lock-fill"></i>
+                                            <h5>Encryption</h5>
+                                            <p>All data transmitted between your device and our servers is encrypted
+                                                using advanced security protocols to prevent interception.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" data-aos="fade-left" data-aos-delay="900">
+                                        <div class="measure-item">
+                                            <i class="bi bi-server"></i>
+                                            <h5>Secure Storage</h5>
+                                            <p>Your data is stored in secure facilities with restricted access, regular
+                                                backups, and comprehensive disaster recovery procedures in place.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="1000">
+                            <h3>Your Rights</h3>
+                            <p>You have several rights regarding your personal data. You can request access to,
+                                correction of, or deletion of your information at any time by contacting our privacy
+                                team.</p>
+
+                            <div class="rights-list">
+                                <div class="right-item">
+                                    <i class="bi bi-eye"></i>
+                                    <div>
+                                        <h5>Right to Access</h5>
+                                        <p>You can request a copy of all personal information we hold about you at any
+                                            time.</p>
+                                    </div>
+                                </div>
+                                <div class="right-item">
+                                    <i class="bi bi-pencil"></i>
+                                    <div>
+                                        <h5>Right to Rectification</h5>
+                                        <p>If your information is inaccurate or incomplete, you have the right to
+                                            request corrections or updates to your data.</p>
+                                    </div>
+                                </div>
+                                <div class="right-item">
+                                    <i class="bi bi-trash"></i>
+                                    <div>
+                                        <h5>Right to Erasure</h5>
+                                        <p>You can request deletion of your personal data from our systems, subject to
+                                            certain legal obligations and exceptions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="1100">
+                            <h3>Cookies and Tracking</h3>
+                            <p>We use cookies and similar tracking technologies to enhance your browsing experience,
+                                remember your preferences, and analyze website traffic.</p>
+
+                            <div class="cookie-types">
+                                <h4>Types of Cookies We Use</h4>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cookie Type</th>
+                                                <th>Purpose</th>
+                                                <th>Duration</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Essential</td>
+                                                <td>Required for website functionality and security features</td>
+                                                <td>Session</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Analytics</td>
+                                                <td>Helps us understand how you use our website and improve services
+                                                </td>
+                                                <td>2 Years</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Marketing</td>
+                                                <td>Used to deliver personalized advertisements and offers</td>
+                                                <td>1 Year</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="privacy-section" data-aos="fade-up" data-aos-delay="1200">
+                            <h3>Changes to This Privacy Policy</h3>
+                            <p>We may update this privacy policy to reflect changes in our practices, technology, or
+                                legal requirements. We will notify you of significant changes and provide the updated
+                                policy on this page.</p>
+                        </div>
+
+                        <div class="contact-section" data-aos="fade-up" data-aos-delay="1300">
+                            <h3>Contact Us</h3>
+                            <p>If you have any questions or concerns about our privacy practices or how we handle your
+                                personal information, please feel free to contact our privacy team at any time.</p>
+
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>privacy@example.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <span>1234 Privacy Street, Legal City, LC 12345</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>+1 (555) 123-4567</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- /Privacy Section -->
+
+</main>
+
+{% endblock %}
