@@ -3,10 +3,8 @@ import os
 SECRET_KEY = 'a811ac582082ebdf2b72a05c9479d963eb552a05b473d8512661d72908f951e9'
 
 # ===== DATABASE CONFIGURATION =====
-# SQLite database location (development)
-# For production: use PostgreSQL or MySQL
-# PostgreSQL example: 'postgresql://username:password@localhost/realestate_db'
-SQLALCHEMY_DATABASE_URI = 'sqlite:///realestate.db'
+# Use MySQL for development if you want to view the schema in MySQL Workbench.
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Johnperry144@localhost:3307/realestate_db'
 
 # Suppress warning about tracking modifications (saves memory)
 SQLALCHEMY_TRACK_MODIFICATIONS = False

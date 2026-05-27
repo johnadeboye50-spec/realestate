@@ -2,7 +2,11 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_wtf import CSRFProtect
 
+from app import config
+
+csrf = CSRFProtect()
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -16,12 +20,18 @@ def create_app():
         static_folder="static"
     )
 
-    # Load instance config (secrets & db)
-    app.config.from_pyfile('config.py')
+    # Load default config, then override with instance config (secrets & db)
+    app.config.from_object(config.LiveConfig)
+    app.config.from_pyfile('config.py', silent=True)
 
     # Initialize extensions
+    csrf.init_app(app)
     db.init_app(app)
     migrate.init_app(app, db)
+
+    # Import models and routes after app exists
+    with app.app_context():
+        from app import models
 
     return app
 
@@ -29,4 +39,4 @@ def create_app():
 app = create_app()
 
 # Import routes
-from app import public_routes
+from app import properties
