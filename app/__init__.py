@@ -4,15 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
 
-from app import config
-
 csrf = CSRFProtect()
 db = SQLAlchemy()
 migrate = Migrate()
 
 
 def create_app():
-
+    from app import config
+    
     app = Flask(
         __name__,
         instance_relative_config=True,
