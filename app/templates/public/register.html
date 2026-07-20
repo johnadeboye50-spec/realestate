@@ -1,0 +1,220 @@
+{% extends "public/public_layout.html "%}
+{% block page_title %}
+<!-- Page Title -->
+<div class="page-title">
+    <div class="heading">
+        <div class="container">
+            <div class="row d-flex justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="heading-title">Register</h1>
+                    <p class="mb-0">
+                        Create an account to access exclusive features, save your favorite properties, and receive
+                        personalized recommendations. Join our community of property enthusiasts and start your
+                        journey today.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="breadcrumbs">
+        <div class="container">
+            <ol>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="current">Register</li>
+            </ol>
+        </div>
+    </nav>
+</div><!-- End Page Title -->
+{% endblock %}
+
+{% block content %}
+
+<section class="register-section section light-background">
+    <div class="container">
+        <div class="row g-4 align-items-start justify-content-center">
+
+
+
+            <!-- Right: Why Register card -->
+            <div class="col-lg-9 d-none d-lg-block">
+                <div class="why-register-card">
+
+                    <div class="register-card-header">
+                        <h4><i class="bi bi-person-plus me-2"></i>Create Your Account</h4>
+                        <p class="mb-0 mt-1">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+                    </div>
+
+                    <div class="register-card-body">
+                        <!-- flashed messages -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{% if category == 'success' %}success{% elif category == 'error' %}danger{% elif category == 'warning'%}exlamation-triangle{% else %}info{% endif %} alert-dismissible fade show"
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                        <form method="POST" action="#" novalidate>
+                            {{ form.hidden_tag() }}
+                            <!-- Account Type Selector -->
+                            <div class="row g-2 mb-3">
+                                {% for subfield in form.role %}
+                                <div class="col-6">
+                                    {{ subfield(class_="btn-check") }}
+                                    <label class="account-type-pill" for="{{ subfield.id }}">
+                                        <i
+                                            class="bi bi-{% if loop.index0 == 0 %}person-fill{% else %}briefcase-fill{% endif %}"></i>
+                                        <span>
+                                            <strong>{{ subfield.label.text }}</strong>
+                                            <small>{% if loop.index0 == 0 %}Buy, rent or save properties{% else %}List
+                                                &amp; manage properties{% endif %}</small>
+                                        </span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.full_name.id }}" class="form-label">
+                                        Full Name <span class="text-danger">*</span>
+                                    </label>
+
+                                    <div class="input-icon-wrap">
+                                        <i class="bi bi-at"></i>
+                                        {{ form.full_name(
+                                        class_="form-control has-icon",
+                                        placeholder="e.g. Adeboye john"
+                                        ) }}
+                                    </div>
+                                    {% for error in form.full_name.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.email.id }}" class="form-label">Email Address <span
+                                            class="text-danger">*</span></label>
+                                    <div class="input-icon-wrap">
+                                        <i class="bi bi-envelope"></i>
+                                        {{ form.email(
+                                        class_="form-control has-icon",
+                                        placeholder="name@example.com"
+                                        ) }}
+                                    </div>
+                                    {% for error in form.email.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label for="{{ form.password.id }}" class="form-label">Password <span
+                                            class="text-danger">*</span></label>
+                                    <div class="input-icon-wrap">
+                                        <i class="bi bi-lock"></i>
+                                        {{ form.password(
+                                        class_="form-control has-icon")}}
+                                        <button type="button" class="input-eye-toggle" tabindex="-1"
+                                            aria-label="Toggle password visibility" title="Toggle password visibility"
+                                            onclick="togglePassword('password', this)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                    {% for error in form.password.errors %}
+                                    <small class="text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                    <div class="password-strength mt-2">
+                                        <div class="strength-track">
+                                            <div class="strength-fill" id="strength-fill"></div>
+                                        </div>
+                                        <span class="strength-label" id="strength-label">Enter a password</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.confirm_password.id }}" class="form-label">Confirm Password
+                                        <span class="text-danger">*</span></label>
+                                    <div class="input-icon-wrap">
+                                        <i class="bi bi-lock-fill"></i>
+                                        {{ form.confirm_password(class_="form-control has-icon") }}
+
+                                        <button type="button" class="input-eye-toggle" tabindex="-1"
+                                            aria-label="Toggle password visibility" title="Toggle password visibility"
+                                            onclick="togglePassword('confirm_password', this)">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                    {% for error in form.confirm_password.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Terms -->
+                            <div class="form-check register-terms mb-4">
+                                {{ form.agree_terms(class_="form-check-input") }}
+                                <label class="form-check-label" for="{{ form.agree_terms.id}}">
+                                    I agree to the
+                                    <a href="{{ url_for('terms') }}" target="_blank">Terms of Service</a> and
+                                    <a href="{{ url_for('privacy') }}" target="_blank">Privacy Policy</a>.
+                                </label>
+                                {% for error in form.agree_terms.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            {{ form.submit(class_="btn-register w-100") }}
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Register form card -->
+
+            <div class="col-lg-3 col-md-9">
+                <div class="register-card">
+                    <div class="why-register-top">
+                        <div class="why-icon-wrap">
+                            <i class="bi bi-buildings-fill"></i>
+                        </div>
+                        <h4>Why Join TheProperty?</h4>
+
+                    </div>
+                    <ul class="why-list">
+                        <li>
+                            <span class="why-icon"><i class="bi bi-search-heart"></i></span>
+                            <div>
+                                <strong>Find Your Dream Home</strong>
+                                <p>Browse verified listings quickly.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="why-icon"><i class="bi bi-bookmark-heart"></i></span>
+                            <div>
+                                <strong>Save & Compare</strong>
+                                <p>Shortlist and compare top options.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="why-icon"><i class="bi bi-chat-dots"></i></span>
+                            <div>
+                                <strong>Contact Agents Directly</strong>
+                                <p>Connect with verified agents instantly.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="why-register-footer">
+                        <i class="bi bi-shield-check me-2"></i>Free to join.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -6,7 +6,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -52,7 +52,7 @@
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+    navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');
       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
@@ -113,7 +113,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -173,7 +173,7 @@
       if (!thumbnails.length || !mainImage) return;
 
       thumbnails.forEach(thumbnail => {
-        thumbnail.addEventListener('click', function() {
+        thumbnail.addEventListener('click', function () {
           // Get image path from data attribute
           const imageSrc = this.getAttribute('data-image');
 
@@ -232,5 +232,73 @@
   }
 
   productDetailFeatures();
+
+  // Shared utility for templates using inline onclick handlers.
+  window.togglePassword = function (id, btn) {
+    const input = document.getElementById(id);
+    if (!input || !btn) return;
+
+    const icon = btn.querySelector('i');
+    if (input.type === 'password') {
+      input.type = 'text';
+      if (icon) icon.classList.replace('bi-eye', 'bi-eye-slash');
+    } else {
+      input.type = 'password';
+      if (icon) icon.classList.replace('bi-eye-slash', 'bi-eye');
+    }
+  };
+
+  function initRegisterPasswordStrength() {
+    const passwordInput = document.getElementById('password');
+    const fill = document.getElementById('strength-fill');
+    const label = document.getElementById('strength-label');
+
+    if (!passwordInput || !fill || !label) return;
+
+    passwordInput.addEventListener('input', function () {
+      const val = this.value;
+      let score = 0;
+
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = [{
+        w: '0%',
+        c: '#e9ecef',
+        t: 'Enter a password'
+      },
+      {
+        w: '25%',
+        c: '#dc3545',
+        t: 'Weak'
+      },
+      {
+        w: '50%',
+        c: '#fd7e14',
+        t: 'Fair'
+      },
+      {
+        w: '75%',
+        c: '#ffc107',
+        t: 'Good'
+      },
+      {
+        w: '100%',
+        c: '#2c7a7b',
+        t: 'Strong'
+      }
+      ];
+
+      const level = levels[score];
+      fill.style.width = level.w;
+      fill.style.background = level.c;
+      label.textContent = level.t;
+      label.style.color = level.c;
+    });
+  }
+
+  initRegisterPasswordStrength();
 
 })();

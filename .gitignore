@@ -1,0 +1,4 @@
+guides/
+vmyproject/
+_pycache__/
+.env

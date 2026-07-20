@@ -9,17 +9,23 @@ class User(db.Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
     role = db.Column(Enum(*user_roles, name='user_roles'), default='client', nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
-    phone = db.Column(db.String(30), nullable=True)
+    password_hash = db.Column(db.String(255), nullable=False)
     avatar = db.Column(db.String(255), nullable=True)
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    agent_profile = db.relationship('Agentprofile', backref='user', uselist=False)
+    email_verified = db.Column(db.Boolean, default=False)
+    email_verified_at = db.Column(db.DateTime, nullable=True)
+    email_verification_code = db.Column(db.String(255), nullable=True)
+    email_verification_expiry = db.Column(db.DateTime, nullable=True)
+    email_verification_attempts = db.Column(db.Integer, default=0)
+
+
+    agent_profile = db.relationship('AgentProfile', backref='user', uselist=False)
 
     property = db.relationship('Property', backref='user', lazy=True)
 
@@ -36,11 +42,11 @@ class AgentProfile(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    title = db.Column(db.String(100), nullable=True)
+    title = db.Column(db.String(255), nullable=True)
     phone = db.Column(db.String(30), nullable=True)
     office_address = db.Column(db.String(255), nullable=True)
-    city = db.Column(db.String(80), nullable=True)
-    state = db.Column(db.String(80), nullable=True)
+    city = db.Column(db.String(255), nullable=True)
+    state = db.Column(db.String(255), nullable=True)
     zip_code = db.Column(db.String(20), nullable=True)
     avatar = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.Float, nullable=True)
@@ -61,27 +67,36 @@ class Property(db.Model):
     __tablename__ = 'property'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(150), nullable=False)
+    property_type_id = db.Column(db.Integer, db.ForeignKey('property_type.id'), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Numeric(12, 2), nullable=False)
     address = db.Column(db.String(255), nullable=True)
-    city = db.Column(db.String(80), nullable=True)
-    state = db.Column(db.String(80), nullable=True)
+    city = db.Column(db.String(255), nullable=True)
+    state = db.Column(db.String(255), nullable=True)
     zip_code = db.Column(db.String(20), nullable=True)
     bedrooms = db.Column(db.Integer, nullable=True)
     bathrooms = db.Column(db.Integer, nullable=True)
     area = db.Column(db.Integer, nullable=True)
-    property_type = db.Column(db.String(80), nullable=True)
     status = db.Column(db.String(40), default='available', nullable=False)
     agent_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    
+    property_type = db.relationship('PropertyType', backref='properties')
 
     def __repr__(self):
         return f"<Property {self.title} price={self.price}>"
     
+class PropertyType(db.Model):
+    __tablename__ = 'property_type'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<PropertyType {self.name}>"
 
 class PropertyImage(db.Model):
     __tablename__ = 'property_image'
@@ -105,7 +120,7 @@ class PropertyFeature(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
     category = db.Column(Enum('interior', 'exterior', 'amenity', name='feature_category'), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -128,8 +143,8 @@ class ContactMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     agent_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(30), nullable=True)
     subject = db.Column(db.String(255), nullable=True)
     message = db.Column(db.Text, nullable=False)

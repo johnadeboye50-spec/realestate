@@ -48,61 +48,49 @@
                 <ul>
                     <li><a href="{{ url_for('home') }}"
                             class="{% if request.endpoint == 'home' %}active{% endif %}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}"
-                            class="{% if request.endpoint == 'about' %}active{% endif %}">About</a></li>
                     <li><a href="{{ url_for('properties') }}"
                             class="{% if request.endpoint == 'properties' %}active{% endif %}">Properties</a></li>
-                    <li><a href="{{ url_for('services') }}"
-                            class="{% if request.endpoint == 'services' %}active{% endif %}">Services</a></li>
                     <li><a href="{{ url_for('agents') }}"
                             class="{% if request.endpoint == 'agents' %}active{% endif %}">Agents</a></li>
+                    <li><a href="{{ url_for('about') }}"
+                            class="{% if request.endpoint == 'about' %}active{% endif %}">About</a></li>
                     <li><a href="{{ url_for('blog') }}"
                             class="{% if request.endpoint == 'blog' %}active{% endif %}">Blog</a></li>
-                    <li class="dropdown"><a href="#"><span>More Pages</span> <i
-                                class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="{{ url_for('property_details') }}">Property Details</a></li>
-                            <li><a href="service-details.html">Service Details</a></li>
-                            <li><a href="{{ url_for('agent_profile') }}">Agent Profile</a></li>
-                            <li><a href="{{ url_for('blog_details') }}">Blog Details</a></li>
-                            <li><a href="{{ url_for('terms') }}">Terms</a></li>
-                            <li><a href="{{ url_for('privacy') }}">Privacy</a></li>
-                            <li><a href="404.html">404</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown"><a href="#"><span>Dropdown</span> <i
-                                class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="#">Dropdown 1</a></li>
-                            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i
-                                        class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Dropdown 1</a></li>
-                                    <li><a href="#">Deep Dropdown 2</a></li>
-                                    <li><a href="#">Deep Dropdown 3</a></li>
-                                    <li><a href="#">Deep Dropdown 4</a></li>
-                                    <li><a href="#">Deep Dropdown 5</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Dropdown 2</a></li>
-                            <li><a href="#">Dropdown 3</a></li>
-                            <li><a href="#">Dropdown 4</a></li>
-                        </ul>
-                    </li>
                     <li><a href="{{ url_for('contact') }}"
                             class="{% if request.endpoint == 'contact' %}active{% endif %}">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
-            <a class="btn-getstarted" href="{{ url_for('properties') }}">Get Started</a>
+            <div class="header-actions d-none d-xl-flex align-items-center">
+                {% if client %}
+                <a class="btn-getstarted" href="{{ url_for('client_dashboard') }}">Dashboard</a>
+                <form method="POST" action="{{ url_for('logout') }}" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn-login">Logout</button>
+                </form>
+                {% elif agent %}
+                <a class="btn-getstarted" href="{{ url_for('agent_dashboard') }}">Dashboard</a>
+                <form method="POST" action="{{ url_for('logout') }}" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn-login">Logout</button>
+                </form>
+                {% else %}
+                <a class="btn-login {% if request.endpoint == 'login' %}active{% endif %}"
+                    href="{{ url_for('login') }}">Login</a>
+                <a class="btn-getstarted" href="{{ url_for('register') }}">Get Started</a>
+                {% endif %}
+            </div>
+
+
 
         </div>
     </header>
-
-    {% block content %}
-    {% endblock %}
+    <main class="main">
+        {% block page_title %}{% endblock %}
+        {% block content %}
+        {% endblock %}
+    </main>
     <footer id="footer" class="footer position-relative">
 
         <div class="container">

@@ -1,14 +1,16 @@
 import os
 
 class GeneralConfig:
-    ADMIN_EMAIL = "johnadeboye50@gmail.com"
+    ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 
 class TestingConfig(GeneralConfig):
     SQLALCHEMY_DATABASE_URI = (
-        "mysql+mysqlconnector://root:Johnperry144@localhost:3307/realestate_db"
+        os.environ.get("DATABASE_URL")
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class LiveConfig(GeneralConfig):
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Johnperry144@localhost:3307/realestate_db"
+    SQLALCHEMY_DATABASE_URI = (
+        os.environ.get("DATABASE_URL")
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
