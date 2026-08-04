@@ -1,9 +1,24 @@
+from datetime import timedelta
+from datetime import datetime
 from flask import render_template,redirect, request, session, url_for, flash
 from app import app
-from app.form import RegisterForm, LoginForm
+from app.form import RegisterForm, LoginForm, EmailVerificationCodeForm
 from app.models import User, db, AgentProfile
+from app.auth_utils import generate_verification_code, send_verification_code_message
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import func
+
+
+def send_verification_email(user):
+    """Send a verification email to the user."""
+    code = generate_verification_code()
+    user.email_verification_code = code
+    user.email_verification_expiry_at = datetime.utcnow() + timedelta(minutes=30)
+    user.email_verification_attempts = 0
+    db.session.commit()
+
+    return send_verification_code_message(user.email, code, expiry_minutes=30)
+
 
 @app.route('/')
 def home():
@@ -64,24 +79,30 @@ def login():
             flash('Your account is inactive. Please contact support.', 'error')
             return render_template('public/login.html', form=form)
 
-        if not check_password_hash(user.password_hash, password):
-            flash('Incorrect password. Please try again.', 'error')
-            return render_template('public/login.html', form=form)
+        chk = check_password_hash(user.password_hash, password)
+        if chk:
+            if not user.email_verified:
+                session['pending_email'] = user.email
+                flash('Please verify your email before logging in.', 'warning')
+                return redirect(url_for('verify_email', email=user.email))
+            
+            session['user_id'] = user.id
+            session['user_role'] = user.role
+            session['user_name'] = user.username
+            session.permanent = bool(form.remember_me.data)
 
-        session['user_id'] = user.id
-        session['user_role'] = user.role
-        session['user_name'] = user.username
-        session.permanent = bool(form.remember_me.data)
+            flash('Login successful!', 'success')
 
-        flash('Login successful!', 'success')
-
-        if user.role == 'agent':
-            return redirect(url_for('home'))
-        if user.role == 'admin':
-            flash('Invalid role. Admins should log in through the admin panel.', category='error')
+            if user.role == 'agent':
+                return redirect(url_for('home'))
+            if user.role == 'admin':
+                flash('Invalid role. Admins should log in through the admin panel.', category='error')
+                return redirect(url_for('login'))
+            if user.role == 'client':
+                return redirect(url_for('home'))
+        else:
+            flash('Incorrect password please try again', category='error')
             return redirect(url_for('login'))
-        if user.role == 'client':
-            return redirect(url_for('home'))
 
     return render_template('public/login.html', form=form)
 
@@ -98,7 +119,7 @@ def register():
             
             existing_user = User.query.filter_by(email=email).first()
             if existing_user:
-                flash('This Email has already been registerd. please login or use another email')
+                flash('This email is already registered. Please log in or use a different email address.', 'error')
                 return render_template('public/register.html', form=form)
             
             role = form.role.data
@@ -108,12 +129,14 @@ def register():
             try:
                 db.session.add(new_user)
                 db.session.commit()
-                if role == 'agent':
-                    agent_profile = AgentProfile(user_id=new_user.id)
-                    db.session.add(agent_profile)
-                    db.session.commit()
-                flash('Account created successfully! Please log in.')
-                return redirect(url_for('login'))
+                send_ok = send_verification_email(new_user)
+                if send_ok:
+                    session['pending_email'] = new_user.email
+                    flash('Registration was successful. Please check your email for the verification code.', 'success')
+                    return redirect(url_for('verify_email', email=new_user.email))
+                else:
+                    flash('Registration was successful, but your verification code could not be sent. Please contact support.', 'warning')
+                    return redirect(url_for('login'))
             except Exception as e:
                 db.session.rollback()
                 flash('An error occurred while creating your account. Please try again.')
@@ -121,6 +144,91 @@ def register():
         else:
             return render_template('public/register.html', form=form)
         
+
+@app.route('/verify-email', methods=['GET', 'POST'])
+def verify_email():
+    form = EmailVerificationCodeForm()
+
+    email = (request.args.get('email') or request.form.get('email') or session.get('pending_email') or '').strip().lower()
+    if not email:
+        flash('Please provide your email address to continue verification.', 'info')
+        return redirect(url_for('login'))
+
+    session['pending_email'] = email
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        flash('No account was found for this email.', 'error')
+        return redirect(url_for('login'))
+
+    if user.email_verified:
+        flash('Your email is already verified. Please log in.', 'info')
+        return redirect(url_for('login'))
+
+    if form.validate_on_submit():
+        code = form.code.data.strip()
+
+        if user.email_verification_expiry_at and user.email_verification_expiry_at < datetime.utcnow():
+            flash('Your verification code has expired. Please request a new one.', 'warning')
+            return redirect(url_for('resend_email_verification_code', email=email))
+
+        if user.email_verification_attempts >= 5:
+            flash('Too many failed attempts. Please request a new code.', 'error')
+            return redirect(url_for('resend_email_verification_code', email=email))
+
+        if code != user.email_verification_code:
+            user.email_verification_attempts += 1
+            db.session.commit()
+            flash('The verification code is incorrect. Please try again.', 'error')
+            return render_template('public/verify_email_code.html', form=form, email=email)
+
+        user.email_verified = True
+        user.email_verified_at = datetime.utcnow()
+        user.email_verification_code = None
+        user.email_verification_expiry_at = None
+        user.email_verification_attempts = 0
+        db.session.commit()
+        session.pop('pending_email', None)
+        flash('Your email has been verified successfully. You can now log in.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('public/verify_email_code.html', form=form, email=email)
+
+@app.route('/resend-email_verification_code',methods=['GET','POST'])
+def resend_email_verification_code():
+    email = (request.args.get('email') or request.form.get('email') or '').strip().lower()
+
+    if not email:
+        flash('Please provide your email address.', 'error')
+        return redirect(url_for('login'))
+    
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        flash('No account was found with that email address.', 'error')
+        return redirect(url_for('login'))
+
+    if user.email_verified:
+        flash('Your email is already verified. Please log in.', 'info')
+        return redirect(url_for('login'))
+    
+    send_ok = send_verification_email(user)
+
+    if send_ok:
+        session['pending_email'] = email
+        flash('A new verification code has been sent. Please check your inbox.', 'success')
+        return redirect(url_for('verify_email', email=email))
+    else:
+        flash('Your verification code could not be sent. Please contact support.', 'warning')
+        return redirect(url_for('login'))
+
+
+    
+
+
+
+
+
+
 
 @app.post('/logout')
 def logout():
