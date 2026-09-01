@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dashboard | TheProperty</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="/static/css/agent-dashboard.css" rel="stylesheet">
+</head>
+
+<body class="agent-dashboard-page">
+    <div class="dashboard-shell">
+        <!-- Primary dashboard navigation -->
+        <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Agent dashboard navigation">
+            <div class="sidebar-brand">
+                <a href="#" class="logo d-flex align-items-center">
+                    <span class="sitename">TheProperty</span>
+                </a>
+                <button class="sidebar-close d-lg-none" type="button" aria-label="Close navigation">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-agent">
+                <img src="/static/img/real-estate/agent-1.webp" alt="Olivia Bennett" class="sidebar-avatar">
+                <div>
+                    <strong>Olivia Bennett</strong>
+                    <span>Real Estate Agent</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-caption">Workspace</p>
+                <a href="#" class="active" aria-current="page"><i class="bi bi-grid-1x2-fill"></i>Dashboard</a>
+                <a href="#"><i class="bi bi-buildings"></i>My Properties</a>
+                <a href="#"><i class="bi bi-plus-square"></i>Add Property</a>
+                <a href="#"><i class="bi bi-chat-square-text"></i>Inquiries <span class="nav-count">8</span></a>
+                <p class="nav-caption">Account</p>
+                <a href="#"><i class="bi bi-person"></i>My Profile</a>
+                <a href="#"><i class="bi bi-gear"></i>Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#"><i class="bi bi-box-arrow-right"></i>Logout</a>
+            </div>
+        </aside>
+
+        <!-- Mobile navigation overlay -->
+        <div class="sidebar-backdrop" aria-hidden="true"></div>
+
+        <main class="dashboard-main">
+            <!-- Fixed dashboard header and account controls -->
+            <header class="dashboard-header sticky-top">
+                <button class="sidebar-toggle d-lg-none" type="button" aria-label="Open navigation">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="header-title">
+                    <span>Agent workspace</span>
+                    <h1>Agent Dashboard</h1>
+                </div>
+                <div class="header-tools">
+                    <button class="notification-button" type="button" aria-label="View notifications">
+                        <i class="bi bi-bell"></i><span></span>
+                    </button>
+                    <div class="header-agent">
+                        <img src="/static/img/real-estate/agent-1.webp" alt="Olivia Bennett">
+                        <div class="d-none d-sm-block">
+                            <strong>Olivia Bennett</strong>
+                            <small>Real Estate Agent</small>
+                        </div>
+                        <i class="bi bi-chevron-down d-none d-sm-block"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Agent greeting and primary listing action -->
+                <section class="welcome-panel">
+                    <div>
+                        <p class="eyebrow">Monday, October 14</p>
+                        <h2>Welcome back, Olivia.</h2>
+                        <p>Here is a clear view of your listings, client activity, and the work waiting for you today.
+                        </p>
+                    </div>
+                    <a href="#" class="dashboard-primary-action"><i class="bi bi-plus-lg"></i>Add New Property</a>
+                </section>
+
+                <!-- Property and inquiry performance summary -->
+                <section class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3 mb-4 mb-lg-5 rounded m-1"
+                    aria-label="Listing summary">
+                    <div class="col">
+                        <article class="stat-card h-100">
+                            <div class="stat-icon properties"><i class="bi bi-buildings"></i></div>
+                            <div><span>Total Properties</span><strong>24</strong><small><i
+                                        class="bi bi-arrow-up-right"></i>
+                                    3 added this month</small></div>
+                        </article>
+                    </div>
+                    <div class="col">
+                        <article class="stat-card h-100">
+                            <div class="stat-icon active-listings"><i class="bi bi-house-check"></i></div>
+                            <div><span>Active Listings</span><strong>18</strong><small>6 listings under review</small>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col">
+                        <article class="stat-card h-100">
+                            <div class="stat-icon sold"><i class="bi bi-key"></i></div>
+                            <div><span>Properties Sold</span><strong>12</strong><small><i
+                                        class="bi bi-arrow-up-right"></i>
+                                    2 this quarter</small></div>
+                        </article>
+                    </div>
+                    <div class="col">
+                        <article class="stat-card h-100">
+                            <div class="stat-icon inquiries"><i class="bi bi-chat-dots"></i></div>
+                            <div><span>New Inquiries</span><strong>8</strong><small>4 need a reply today</small></div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Recently managed property listings -->
+                <section class="dashboard-section p-3 rounded">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Listings</p>
+                            <h2>Recent Properties</h2>
+                        </div>
+                        <a href="#" class="text-action">View all properties <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div class="data-panel p-2 p-md-3">
+                        <div class="table-responsive">
+                            <table class="table dashboard-table align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Property</th>
+                                        <th>Location</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Date Listed</th>
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="property-cell"><img
+                                                    src="/static/img/real-estate/property-exterior-1.webp"
+                                                    alt="Palm Grove Residence">
+                                                <div><strong>Palm Grove Residence</strong><span>4 beds · 3 baths · 2,850
+                                                        sq
+                                                        ft</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Coral Gables, FL</td>
+                                        <td><strong>$1,250,000</strong></td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td>Oct 12, 2025</td>
+                                        <td class="text-end"><a href="#" class="table-action">View</a><a href="#"
+                                                class="table-action">Edit</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="property-cell"><img
+                                                    src="/static/img/real-estate/property-exterior-4.webp"
+                                                    alt="Bayside Modern Villa">
+                                                <div><strong>Bayside Modern Villa</strong><span>5 beds · 4 baths · 3,420
+                                                        sq
+                                                        ft</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Miami Beach, FL</td>
+                                        <td><strong>$2,075,000</strong></td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td>Oct 08, 2025</td>
+                                        <td class="text-end"><a href="#" class="table-action">View</a><a href="#"
+                                                class="table-action">Edit</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="property-cell"><img
+                                                    src="/static/img/real-estate/property-exterior-7.webp"
+                                                    alt="Cedar Lane Townhome">
+                                                <div><strong>Cedar Lane Townhome</strong><span>3 beds · 2 baths · 1,960
+                                                        sq
+                                                        ft</span></div>
+                                            </div>
+                                        </td>
+                                        <td>Fort Lauderdale, FL</td>
+                                        <td><strong>$685,000</strong></td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td>Sep 29, 2025</td>
+                                        <td class="text-end"><a href="#" class="table-action">View</a><a href="#"
+                                                class="table-action">Edit</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Client inquiries and agent account shortcuts -->
+                <div class="row g-4 dashboard-lower-row">
+                    <div class="col-xl-8">
+                        <!-- Latest client inquiries -->
+                        <section class="dashboard-section h-100 p-3 rounded">
+                            <div class="section-heading">
+                                <div>
+                                    <p class="eyebrow">Client activity</p>
+                                    <h2>Recent Inquiries</h2>
+                                </div><a href="#" class="text-action">View all messages <i
+                                        class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="data-panel p-2 p-md-3">
+                                <div class="table-responsive">
+                                    <table class="table dashboard-table inquiry-table align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Client</th>
+                                                <th>Property</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th class="text-end">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="client-cell"><span>JM</span><strong>James
+                                                            Miller</strong>
+                                                    </div>
+                                                </td>
+                                                <td>Palm Grove Residence</td>
+                                                <td>Today, 9:42 AM</td>
+                                                <td><span class="status-badge new">New</span></td>
+                                                <td class="text-end"><a href="#" class="table-action">Reply</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="client-cell"><span>SA</span><strong>Sophia
+                                                            Adams</strong>
+                                                    </div>
+                                                </td>
+                                                <td>Bayside Modern Villa</td>
+                                                <td>Yesterday</td>
+                                                <td><span class="status-badge replied">Replied</span></td>
+                                                <td class="text-end"><a href="#" class="table-action">View</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="client-cell"><span>DM</span><strong>Daniel
+                                                            Moore</strong>
+                                                    </div>
+                                                </td>
+                                                <td>Cedar Lane Townhome</td>
+                                                <td>Oct 11, 2025</td>
+                                                <td><span class="status-badge new">New</span></td>
+                                                <td class="text-end"><a href="#" class="table-action">Reply</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-xl-4">
+                        <!-- Frequently used agent actions -->
+                        <section class="quick-actions h-100">
+                            <div class="section-heading">
+                                <div>
+                                    <p class="eyebrow">Shortcuts</p>
+                                    <h2>Quick Actions</h2>
+                                </div>
+                            </div>
+                            <a href="#"><span class="quick-icon"><i class="bi bi-plus-lg"></i></span><span><strong>Add
+                                        New Property</strong><small>Create a listing for a property</small></span><i
+                                    class="bi bi-chevron-right"></i></a>
+                            <a href="#"><span class="quick-icon"><i
+                                        class="bi bi-buildings"></i></span><span><strong>View My
+                                        Properties</strong><small>Manage your active listings</small></span><i
+                                    class="bi bi-chevron-right"></i></a>
+                            <a href="#"><span class="quick-icon"><i
+                                        class="bi bi-chat-square-text"></i></span><span><strong>View
+                                        Messages</strong><small>Respond to client inquiries</small></span><i
+                                    class="bi bi-chevron-right"></i></a>
+                            <a href="#"><span class="quick-icon"><i
+                                        class="bi bi-person-gear"></i></span><span><strong>Edit
+                                        Profile</strong><small>Update your agent details</small></span><i
+                                    class="bi bi-chevron-right"></i></a>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('dashboard-sidebar');
+        const backdrop = document.querySelector('.sidebar-backdrop');
+        const toggleSidebar = () => document.body.classList.toggle('sidebar-open');
+        document.querySelector('.sidebar-toggle').addEventListener('click', toggleSidebar);
+        document.querySelector('.sidebar-close').addEventListener('click', toggleSidebar);
+        backdrop.addEventListener('click', toggleSidebar);
+    </script>
+</body>
+
+</html>

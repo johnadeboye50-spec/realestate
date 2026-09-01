@@ -83,7 +83,11 @@ def login():
         if chk:
             if not user.email_verified:
                 session['pending_email'] = user.email
-                flash('Please verify your email before logging in.', 'warning')
+                send_ok = send_verification_email(user)
+                if send_ok:
+                    flash('Please verify your email before logging in. A verification code has been sent to your inbox.', 'warning')
+                else:
+                    flash('Please verify your email before logging in. We could not send a new code, please try again.', 'error')
                 return redirect(url_for('verify_email', email=user.email))
             
             session['user_id'] = user.id
@@ -156,13 +160,13 @@ def verify_email():
 
     session['pending_email'] = email
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter(func.lower(func.trim(User.email)) == email).first()
     if not user:
-        flash('No account was found for this email.', 'error')
+        flash('We could not find an account with that email address.', 'error')
         return redirect(url_for('login'))
 
     if user.email_verified:
-        flash('Your email is already verified. Please log in.', 'info')
+        flash('This email is already verified. Please log in.', 'info')
         return redirect(url_for('login'))
 
     if form.validate_on_submit():
@@ -172,12 +176,12 @@ def verify_email():
             flash('Your verification code has expired. Please request a new one.', 'warning')
             return redirect(url_for('resend_email_verification_code', email=email))
 
-        if user.email_verification_attempts >= 5:
+        if (user.email_verification_attempts or 0) >= 5:
             flash('Too many failed attempts. Please request a new code.', 'error')
             return redirect(url_for('resend_email_verification_code', email=email))
 
         if code != user.email_verification_code:
-            user.email_verification_attempts += 1
+            user.email_verification_attempts = (user.email_verification_attempts or 0) + 1
             db.session.commit()
             flash('The verification code is incorrect. Please try again.', 'error')
             return render_template('public/verify_email_code.html', form=form, email=email)
@@ -202,13 +206,13 @@ def resend_email_verification_code():
         flash('Please provide your email address.', 'error')
         return redirect(url_for('login'))
     
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter(func.lower(func.trim(User.email)) == email).first()
     if not user:
-        flash('No account was found with that email address.', 'error')
+        flash('We could not find an account with that email address.', 'error')
         return redirect(url_for('login'))
 
     if user.email_verified:
-        flash('Your email is already verified. Please log in.', 'info')
+        flash('This email is already verified. Please log in.', 'info')
         return redirect(url_for('login'))
     
     send_ok = send_verification_email(user)
@@ -220,15 +224,7 @@ def resend_email_verification_code():
     else:
         flash('Your verification code could not be sent. Please contact support.', 'warning')
         return redirect(url_for('login'))
-
-
     
-
-
-
-
-
-
 
 @app.post('/logout')
 def logout():
@@ -241,7 +237,7 @@ def client_dashboard():
 
 @app.route('/agent-dashboard')
 def agent_dashboard():
-    return None
+    return render_template('agent/dashboard.html')
 
 
 @app.route('/terms')
