@@ -1,12 +1,31 @@
 from datetime import timedelta
 from datetime import datetime
 from flask import render_template,redirect, request, session, url_for, flash
+from functools import wraps
 from app import app
 from app.form import RegisterForm, LoginForm, EmailVerificationCodeForm
 from app.models import User, db, AgentProfile
 from app.auth_utils import generate_verification_code, send_verification_code_message
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import func
+
+
+@app.after_request
+def after_request(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('user_id') is None:
+            flash('You need to be logged in to access this page.', 'error')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 
 def send_verification_email(user):
@@ -44,8 +63,8 @@ def services():
 def agents():
     return render_template('public/agents.html')
 
-@app.route('/agent-profile')
-def agent_profile():
+@app.route('/agent_page')
+def agent_page():
     return render_template('public/agent-profile.html')
 
 @app.route('/blog')
@@ -98,7 +117,7 @@ def login():
             flash('Login successful!', 'success')
 
             if user.role == 'agent':
-                return redirect(url_for('home'))
+                return redirect(url_for('agent_dashboard'))
             if user.role == 'admin':
                 flash('Invalid role. Admins should log in through the admin panel.', category='error')
                 return redirect(url_for('login'))
@@ -234,10 +253,6 @@ def logout():
 @app.route('/client-dashboard')
 def client_dashboard():
     return None
-
-@app.route('/agent-dashboard')
-def agent_dashboard():
-    return render_template('agent/dashboard.html')
 
 
 @app.route('/terms')

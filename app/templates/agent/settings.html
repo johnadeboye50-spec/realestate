@@ -1,0 +1,191 @@
+{% extends 'agent/dashboardlayout.html' %}
+
+{% block page_key %}settings{% endblock %}
+{% block page_subtitle %}Account{% endblock %}
+{% block page_title %}Settings{% endblock %}
+
+{% block content %}
+<main class="dashboard-content">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <!-- Settings navigation -->
+            <div class="nav flex-column nav-pills gap-1" role="tablist" aria-orientation="vertical">
+                <button class="nav-link text-start active" data-bs-toggle="pill" data-bs-target="#tab-account"
+                    type="button" role="tab"><i class="bi bi-person me-2"></i>Account</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tab-notifications"
+                    type="button" role="tab"><i class="bi bi-bell me-2"></i>Notifications</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tab-security" type="button"
+                    role="tab"><i class="bi bi-shield-lock me-2"></i>Security</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#tab-preferences"
+                    type="button" role="tab"><i class="bi bi-sliders me-2"></i>Preferences</button>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="tab-content">
+                <!-- Account settings -->
+                <div class="tab-pane fade show active" id="tab-account" role="tabpanel">
+                    <section class="card border-0 shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <h2 class="h6 mb-3">Account Details</h2>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="settings-full-name">Full Name</label>
+                                    <input type="text" id="settings-full-name" class="form-control"
+                                        value="Olivia Bennett">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="settings-email">Email Address</label>
+                                    <input type="email" id="settings-email" class="form-control"
+                                        value="olivia.bennett@theproperty.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="settings-language">Language</label>
+                                    <select id="settings-language" class="form-select">
+                                        <option selected>English (US)</option>
+                                        <option>Spanish</option>
+                                        <option>French</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="settings-timezone">Time Zone</label>
+                                    <select id="settings-timezone" class="form-select">
+                                        <option selected>Eastern Time (ET)</option>
+                                        <option>Central Time (CT)</option>
+                                        <option>Pacific Time (PT)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="card border-0 shadow-sm rounded-4 border-danger-subtle">
+                        <div class="card-body p-4">
+                            <h2 class="h6 mb-1 text-danger">Danger Zone</h2>
+                            <p class="text-secondary small mb-3">Deactivating your account will hide all your listings
+                                from public view.</p>
+                            <button type="button" class="btn btn-outline-danger rounded-pill">Deactivate
+                                Account</button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Notification settings -->
+                <div class="tab-pane fade" id="tab-notifications" role="tabpanel">
+                    <section class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h2 class="h6 mb-3">Notification Preferences</h2>
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                                <div><strong class="d-block small">New Inquiry Alerts</strong><span
+                                        class="text-secondary small">Get an email when a client sends an inquiry</span>
+                                </div>
+                                <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                                        role="switch" id="notify-inquiry" checked><label class="visually-hidden"
+                                        for="notify-inquiry">New Inquiry Alerts</label></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                                <div><strong class="d-block small">SMS Alerts</strong><span
+                                        class="text-secondary small">Receive a text for urgent messages</span></div>
+                                <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                                        role="switch" id="notify-sms"><label class="visually-hidden"
+                                        for="notify-sms">SMS Alerts</label></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                                <div><strong class="d-block small">Weekly Summary Report</strong><span
+                                        class="text-secondary small">A recap of your listings and inquiries</span></div>
+                                <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                                        role="switch" id="notify-summary" checked><label class="visually-hidden"
+                                        for="notify-summary">Weekly Summary Report</label></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-3">
+                                <div><strong class="d-block small">Marketing Emails</strong><span
+                                        class="text-secondary small">Tips, product updates and offers</span></div>
+                                <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                                        role="switch" id="notify-marketing"><label class="visually-hidden"
+                                        for="notify-marketing">Marketing Emails</label></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Security settings -->
+                <div class="tab-pane fade" id="tab-security" role="tabpanel">
+                    <section class="card border-0 shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <h2 class="h6 mb-3">Change Password</h2>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label" for="security-current-password">Current Password</label>
+                                    <input type="password" id="security-current-password" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="security-new-password">New Password</label>
+                                    <input type="password" id="security-new-password" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="security-confirm-password">Confirm New
+                                        Password</label>
+                                    <input type="password" id="security-confirm-password" class="form-control">
+                                </div>
+                            </div>
+                            <button type="button" class="dashboard-primary-action mt-3">Update Password</button>
+                        </div>
+                    </section>
+
+                    <section class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div><strong class="d-block small">Two-Factor Authentication</strong><span
+                                        class="text-secondary small">Add an extra layer of security to your
+                                        account</span></div>
+                                <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                                        role="switch" id="security-2fa"><label class="visually-hidden"
+                                        for="security-2fa">Two-Factor Authentication</label></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- General preferences -->
+                <div class="tab-pane fade" id="tab-preferences" role="tabpanel">
+                    <section class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h2 class="h6 mb-3">General Preferences</h2>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="pref-theme">Theme</label>
+                                    <select id="pref-theme" class="form-select">
+                                        <option selected>Light</option>
+                                        <option>Dark</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="pref-currency">Default Currency</label>
+                                    <select id="pref-currency" class="form-select">
+                                        <option selected>USD ($)</option>
+                                        <option>EUR (€)</option>
+                                        <option>GBP (£)</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label d-block">Default Listings View</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="listings-view"
+                                            id="listings-view-grid" checked>
+                                        <label class="form-check-label" for="listings-view-grid">Grid</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="listings-view"
+                                            id="listings-view-list">
+                                        <label class="form-check-label" for="listings-view-list">List</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

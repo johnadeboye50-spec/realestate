@@ -1,0 +1,131 @@
+{% extends 'agent/dashboardlayout.html' %}
+
+{% block page_key %}inquiries{% endblock %}
+{% block page_subtitle %}Client activity{% endblock %}
+{% block page_title %}Inquiries{% endblock %}
+
+{% block content %}
+<main class="dashboard-content">
+    <!-- Filter tabs and search -->
+    <section class="d-flex flex-wrap gap-3 justify-content-between align-items-center mb-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link active" href="#">All <span
+                        class="badge rounded-pill bg-light text-dark ms-1">12</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#">New <span
+                        class="badge rounded-pill bg-light text-dark ms-1">4</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Replied</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Archived</a></li>
+        </ul>
+        <div class="input-group w-toolbar-sm">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control border-start-0" placeholder="Search inquiries...">
+        </div>
+    </section>
+
+    <!-- Inquiry list -->
+    <section class="dashboard-section p-3 rounded">
+        <div class="data-panel p-2 p-md-3">
+            <div class="table-responsive">
+                <table class="table dashboard-table inquiry-table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Property</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="client-cell"><span>JM</span><strong>James Miller</strong></div>
+                            </td>
+                            <td>Palm Grove Residence</td>
+                            <td class="text-truncate truncate-cell">Is this property still available for a viewing this
+                                weekend?</td>
+                            <td>Today, 9:42 AM</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td class="text-end"><a href="#" class="table-action" data-bs-toggle="modal"
+                                    data-bs-target="#inquiryModal">Reply</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="client-cell"><span>SA</span><strong>Sophia Adams</strong></div>
+                            </td>
+                            <td>Bayside Modern Villa</td>
+                            <td class="text-truncate truncate-cell">Thank you for the tour yesterday, we would like to
+                                make an offer.</td>
+                            <td>Yesterday</td>
+                            <td><span class="status-badge replied">Replied</span></td>
+                            <td class="text-end"><a href="#" class="table-action" data-bs-toggle="modal"
+                                    data-bs-target="#inquiryModal">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="client-cell"><span>DM</span><strong>Daniel Moore</strong></div>
+                            </td>
+                            <td>Cedar Lane Townhome</td>
+                            <td class="text-truncate truncate-cell">Could you share the HOA fees and recent inspection
+                                report?</td>
+                            <td>Oct 11, 2025</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td class="text-end"><a href="#" class="table-action" data-bs-toggle="modal"
+                                    data-bs-target="#inquiryModal">Reply</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="client-cell"><span>RK</span><strong>Rachel Kim</strong></div>
+                            </td>
+                            <td>Harborview Family Home</td>
+                            <td class="text-truncate truncate-cell">We loved the layout, is the price negotiable?</td>
+                            <td>Oct 09, 2025</td>
+                            <td><span class="status-badge replied">Replied</span></td>
+                            <td class="text-end"><a href="#" class="table-action" data-bs-toggle="modal"
+                                    data-bs-target="#inquiryModal">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="client-cell"><span>TP</span><strong>Thomas Park</strong></div>
+                            </td>
+                            <td>Willow Creek Estate</td>
+                            <td class="text-truncate truncate-cell">Requesting a virtual tour for out-of-state buyers.
+                            </td>
+                            <td>Oct 05, 2025</td>
+                            <td><span class="status-badge new">New</span></td>
+                            <td class="text-end"><a href="#" class="table-action" data-bs-toggle="modal"
+                                    data-bs-target="#inquiryModal">Reply</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inquiry detail and reply modal -->
+    <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-header">
+                    <h2 class="modal-title h6" id="inquiryModalLabel">Inquiry from James Miller</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="small text-secondary mb-1">Palm Grove Residence · Today, 9:42 AM</p>
+                    <p>Is this property still available for a viewing this weekend? I'm particularly interested in the
+                        backyard space and the school district nearby.</p>
+                    <hr>
+                    <label class="form-label small fw-semibold">Your Reply</label>
+                    <textarea class="form-control" rows="4" placeholder="Type your reply..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="dashboard-primary-action">Send Reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

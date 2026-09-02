@@ -1,0 +1,123 @@
+{% extends 'agent/dashboardlayout.html' %}
+
+{% block page_key %}profile{% endblock %}
+{% block page_subtitle %}Account{% endblock %}
+{% block page_title %}My Profile{% endblock %}
+
+{% block content %}
+<main class="dashboard-content">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <!-- Profile summary card -->
+            <section class="card border-0 shadow-sm rounded-4 text-center">
+                <div class="card-body p-4">
+                    <div class="position-relative d-inline-block mb-3">
+                        <img src="/static/img/real-estate/agent-1.webp" alt="Olivia Bennett"
+                            class="rounded-circle object-fit-cover" width="110" height="110">
+                        <button type="button"
+                            class="btn btn-sm btn-light rounded-circle shadow-sm position-absolute bottom-0 end-0"
+                            aria-label="Change photo"><i class="bi bi-camera"></i></button>
+                    </div>
+                    <h2 class="h5 mb-0">Olivia Bennett</h2>
+                    <p class="text-secondary small mb-3">Senior Real Estate Agent</p>
+                    <div class="d-flex justify-content-center gap-4 border-top pt-3">
+                        <div><strong class="d-block">24</strong><span class="text-secondary small">Listings</span></div>
+                        <div><strong class="d-block">12</strong><span class="text-secondary small">Sold</span></div>
+                        <div><strong class="d-block">4.9</strong><span class="text-secondary small">Rating</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social presence -->
+            <section class="card border-0 shadow-sm rounded-4 mt-4">
+                <div class="card-body p-4">
+                    <h2 class="h6 mb-3">Social Links</h2>
+                    <div class="mb-3">
+                        <label class="form-label small">Facebook</label>
+                        <div class="input-group"><span class="input-group-text"><i
+                                    class="bi bi-facebook"></i></span><input type="text" class="form-control"
+                                placeholder="Profile URL"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small">LinkedIn</label>
+                        <div class="input-group"><span class="input-group-text"><i
+                                    class="bi bi-linkedin"></i></span><input type="text" class="form-control"
+                                placeholder="Profile URL"></div>
+                    </div>
+                    <div>
+                        <label class="form-label small">Instagram</label>
+                        <div class="input-group"><span class="input-group-text"><i
+                                    class="bi bi-instagram"></i></span><input type="text" class="form-control"
+                                placeholder="Profile URL"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-8">
+            <!-- Personal information -->
+            <section class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h2 class="h6 mb-3">Personal Information</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="profile-full-name">Full Name</label>
+                            <input type="text" id="profile-full-name" class="form-control" value="Olivia Bennett">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="profile-email">Email Address</label>
+                            <input type="email" id="profile-email" class="form-control"
+                                value="olivia.bennett@theproperty.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="profile-phone">Phone Number</label>
+                            <input type="text" id="profile-phone" class="form-control" value="+1 (555) 312-7788">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="profile-office">Office Address</label>
+                            <input type="text" id="profile-office" class="form-control" value="Downtown Miami Office">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="profile-bio">Bio</label>
+                            <textarea id="profile-bio" class="form-control"
+                                rows="4">Dedicated to helping clients find their perfect property through professional guidance and honest, personalized service across South Florida.</textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Professional details -->
+            <section class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h2 class="h6 mb-3">Professional Details</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="profile-license">License Number</label>
+                            <input type="text" id="profile-license" class="form-control" value="FL-RE-30821">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="profile-experience">Years of Experience</label>
+                            <input type="number" id="profile-experience" class="form-control" value="5">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Specialties</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge rounded-pill text-bg-light border">Luxury Homes</span>
+                                <span class="badge rounded-pill text-bg-light border">Investment Properties</span>
+                                <span class="badge rounded-pill text-bg-light border">First-Time Buyers</span>
+                                <button type="button" class="badge rounded-pill border bg-white text-secondary"><i
+                                        class="bi bi-plus"></i> Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-outline-secondary rounded-pill me-2">Cancel</button>
+                <button type="submit" class="dashboard-primary-action">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

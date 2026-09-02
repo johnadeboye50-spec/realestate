@@ -60,4 +60,5 @@ def create_app():
 app = create_app()
 
 # Import routes
-from app import properties
+from app import admin_routes, agent_routes, auth_utils, clieant_routes, form, public_routes
+

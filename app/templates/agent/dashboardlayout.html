@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Dashboard | TheProperty</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="/static/css/agent-dashboard.css" rel="stylesheet">
+</head>
+
+<body class="agent-dashboard-page" data-page="{% block page_key %}dashboard{% endblock %}">
+    <div class="dashboard-shell">
+        <!-- Primary dashboard navigation -->
+        <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Agent dashboard navigation">
+            <div class="sidebar-brand">
+                <a href="{{ url_for('home') }}" class="logo d-flex align-items-center">
+                    <span class="sitename">TheProperty</span>
+                </a>
+                <button class="sidebar-close d-lg-none" type="button" aria-label="Close navigation">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-agent">
+                <img src="/static/img/real-estate/agent-1.webp" alt="{{ session.get('user_name') }}"
+                    class="sidebar-avatar">
+                <div>
+                    <strong>{{ agent.username.capitalize() or 'Agent' }}</strong>
+                    <span>Real Estate Agent</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-caption">Workspace</p>
+                <a href="{{ url_for('agent_dashboard') }}" class="{{ 'active' if self.page_key() == 'dashboard' }}"
+                    aria-current="{{ 'page' if self.page_key() == 'dashboard' }}"><i
+                        class="bi bi-grid-1x2-fill"></i>Dashboard</a>
+                <a href="{{ url_for('agent_properties') }}" class="{{ 'active' if self.page_key() == 'properties' }}"><i
+                        class="bi bi-buildings"></i>My
+                    Properties</a>
+                <a href="{{ url_for('agent_add_property') }}"
+                    class="{{ 'active' if self.page_key() == 'add-property' }}"><i class="bi bi-plus-square"></i>Add
+                    Property</a>
+                <a href="{{ url_for('agent_inquiries') }}" class="{{ 'active' if self.page_key() == 'inquiries' }}"><i
+                        class="bi bi-chat-square-text"></i>Inquiries <span class="nav-count">8</span></a>
+                <p class="nav-caption">Account</p>
+                <a href="{{ url_for('agent_profile') }}" class="{{ 'active' if self.page_key() == 'profile' }}"><i
+                        class="bi bi-person"></i>My
+                    Profile</a>
+                <a href="{{ url_for('agent_settings') }}" class="{{ 'active' if self.page_key() == 'settings' }}"><i
+                        class="bi bi-gear"></i>Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <form method="POST" action="{{ url_for('logout') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit"><i class="bi bi-box-arrow-right"></i>Logout</button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Mobile navigation overlay -->
+        <div class="sidebar-backdrop" aria-hidden="true"></div>
+
+        <div class="dashboard-main">
+            <!-- Fixed dashboard header and account controls -->
+            <header class="dashboard-header sticky-top">
+                <button class="sidebar-toggle d-lg-none" type="button" aria-label="Open navigation">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="header-title">
+                    <span>{% block page_subtitle %}Agent workspace{% endblock %}</span>
+                    <h1>{% block page_title %}Agent Dashboard{% endblock %}</h1>
+                </div>
+                <div class="header-tools">
+                    <button class="notification-button" type="button" aria-label="View notifications">
+                        <i class="bi bi-bell"></i><span></span>
+                    </button>
+                    <div class="header-agent">
+                        <img src="/static/img/real-estate/agent-1.webp" alt="Olivia Bennett">
+                        <div class="d-none d-sm-block">
+                            <strong>{{agent.username.capitalize() or 'Agent'}}</strong>
+                            <small>Real Estate Agent</small>
+                        </div>
+                        <i class="bi bi-chevron-down d-none d-sm-block"></i>
+                    </div>
+                </div>
+            </header>
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+    </div>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('dashboard-sidebar');
+        const backdrop = document.querySelector('.sidebar-backdrop');
+        const toggleSidebar = () => document.body.classList.toggle('sidebar-open');
+        document.querySelector('.sidebar-toggle').addEventListener('click', toggleSidebar);
+        document.querySelector('.sidebar-close').addEventListener('click', toggleSidebar);
+        backdrop.addEventListener('click', toggleSidebar);
+    </script>
+</body>
+
+</html>
